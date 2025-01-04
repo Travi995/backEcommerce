@@ -1,6 +1,7 @@
+import 'dotenv/config'
 import { Server } from "./src/model/server";
 import "reflect-metadata"
-import "dotenv/config";
+
 
 const app = new Server()
 

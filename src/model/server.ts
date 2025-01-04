@@ -1,6 +1,7 @@
 import express,{ Application } from "express"
 import cors from 'cors'
 import { stdUrl } from "../helpers/stdUrl"
+import { db } from "../db/db"
 export class Server {
     public app : Application
     public port: number
@@ -11,8 +12,19 @@ export class Server {
         this.port = parseInt(process.env.PORT || "3000")
         this.pathAuth= stdUrl("auth")
 
+        this.loadDb()
         this.middleaware()
         this.routes()
+    }
+
+
+    async loadDb(){
+        try {
+            await db.initialize()
+            console.log("Base de datos cargada")
+        } catch (error) {
+            console.log("Error al cargar la base de datos",error)
+        }
     }
 
     middleaware(){
@@ -26,6 +38,8 @@ export class Server {
         //servir la carpeta public
         this.app.use(express.static('public'))
     }
+
+    
 
     routes(){
         console.log(this.pathAuth)
