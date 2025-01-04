@@ -1,4 +1,5 @@
 import { DataSource } from "typeorm";
+import { User } from "../entities/user";
 
 
 export const db = new DataSource({
@@ -11,5 +12,5 @@ export const db = new DataSource({
     synchronize: true,
     dropSchema: false,
     logging: false,
-    entities: [],
+    entities: [User],
 });
