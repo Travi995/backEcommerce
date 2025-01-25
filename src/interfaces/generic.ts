@@ -1,5 +1,6 @@
 
 export type  itfPayloadJWT ={
-    id:string
+    id:string|number
+    cell:string|number
 
 }

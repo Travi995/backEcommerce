@@ -1,17 +1,17 @@
-import express,{ Application } from "express"
+import express, { Application } from "express"
 import cors from 'cors'
 import { stdUrl } from "../helpers/stdUrl"
 import { db } from "../db/db"
 import { routeAuth } from "../routes/auth"
 export class Server {
-    public app : Application
+    public app: Application
     public port: number
     public pathAuth: string
 
-    constructor(){
-        this.app =  express(),
+    constructor() {
+        this.app = express(),
         this.port = parseInt(process.env.PORT || "3000")
-        this.pathAuth= stdUrl("auth")
+        this.pathAuth = stdUrl("auth")
 
         this.loadDb()
         this.middleaware()
@@ -19,16 +19,16 @@ export class Server {
     }
 
 
-    async loadDb(){
+    async loadDb() {
         try {
             await db.initialize()
             console.log("Base de datos cargada")
         } catch (error) {
-            console.log("Error al cargar la base de datos",error)
+            console.log("Error al cargar la base de datos", error)
         }
     }
 
-    middleaware(){
+    middleaware() {
 
         //habilitacion del cors
         this.app.use(cors())
@@ -40,8 +40,10 @@ export class Server {
         this.app.use(express.static('public'))
     }
 
-    routes(){
-        this.app.use(this.pathAuth,routeAuth)
+    routes() {
+        
+        this.app.use(this.pathAuth, routeAuth)
+
 
     }
 
