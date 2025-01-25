@@ -2,6 +2,7 @@ import express,{ Application } from "express"
 import cors from 'cors'
 import { stdUrl } from "../helpers/stdUrl"
 import { db } from "../db/db"
+import { routeAuth } from "../routes/auth"
 export class Server {
     public app : Application
     public port: number
@@ -39,10 +40,8 @@ export class Server {
         this.app.use(express.static('public'))
     }
 
-    
-
     routes(){
-        console.log(this.pathAuth)
+        this.app.use(this.pathAuth,routeAuth)
 
     }
 
